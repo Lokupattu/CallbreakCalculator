@@ -110,6 +110,9 @@ export default function App() {
 
           <RoundHistory players={players} rounds={rounds} />
         </div>
+        <div className="bg-gray-50 text-center py-3 text-sm text-gray-500 border-t">
+            Copyright.... With Love ❤️ from Loki Dai. Good Luck
+        </div>
       </div>
     </div>
   );

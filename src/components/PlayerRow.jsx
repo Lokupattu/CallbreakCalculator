@@ -39,6 +39,11 @@ export default function PlayerRow({ players, onSubmit, roundNo }) {
         return;
     }
 
+    if (totalCalls <= 8) {
+        alert("Total calls must be greater than 8");
+        return;
+    }
+
     // Special Rule: If total calls = 9, auto-complete round
     if (totalCalls === 9) {
         const scores = calls.map(c => c + 0.1);
@@ -102,7 +107,8 @@ export default function PlayerRow({ players, onSubmit, roundNo }) {
               type="number"
               min="1"
               max="13"
-              value={calls[i] === 0 ? "0" : (calls[i] || "")}
+              placeholder="0"
+              value={calls[i] || ""}
               onChange={(e) => handleCallChange(i, e.target.value)}
               disabled={step !== "call"}
               className={`w-16 border rounded px-2 py-1 text-center ${step !== 'call' ? 'bg-gray-100 text-gray-500' : 'bg-white border-blue-300 ring-2 ring-transparent focus:ring-blue-200'}`}
@@ -115,7 +121,8 @@ export default function PlayerRow({ players, onSubmit, roundNo }) {
                   type="number"
                   min="0"
                   max="13"
-                  value={hands[i] === 0 ? "0" : (hands[i] || "")}
+                  placeholder="0"
+                  value={hands[i] || ""}
                   onChange={(e) => handleHandChange(i, e.target.value)}
                   className="w-16 border border-green-300 rounded px-2 py-1 text-center focus:ring-2 focus:ring-green-200 outline-none"
                 />
