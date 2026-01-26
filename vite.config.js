@@ -10,26 +10,53 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: "autoUpdate",
+      includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
       manifest: {
         name: "Callbreak Calculator",
         short_name: "Callbreak",
-        description: "Ofline-capable Callbreak Score Calculator",
+        description: "Official Callbreak Score Calculator for tracking game scores offline.",
         theme_color: "#1e293b",
+        background_color: "#1e293b",
+        display: "standalone",
+        orientation: "portrait",
+        start_url: "/",
         icons: [
           {
-            src: "/vite.svg",
+            src: "/pwa-192x192.png",
             sizes: "192x192",
-            type: "image/svg+xml",
+            type: "image/png",
           },
           {
-            src: "/vite.svg",
+            src: "/pwa-512x512.png",
             sizes: "512x512",
-            type: "image/svg+xml",
+            type: "image/png",
+          },
+          {
+            src: "/maskable-icon.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any maskable",
           },
         ],
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "google-fonts-cache",
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // <--- 365 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+        ],
       },
     }),
   ],
